@@ -1,28 +1,61 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Author:Tao Yimin
-# Time  :2019/5/6 20:24
-from Crypto import Random
-from Crypto.Cipher import AES
-import hashlib
+# Time  :2019/5/7 18:44
 import base64
+import hashlib
+
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+
 
 class AESCipher:
+    """
+    AES加密、解密工具类
+    """
+
     def __init__(self, key):
-        self.bs = 16
-        """AES 128的key长度为16字节"""
-        self.key = hashlib.sha256(key.encode()).digest()[:16]
+        self.key = key
+        # 这里直接用key充当iv
+        self.iv = key
 
-
-    def encrypt(self, message):
-        message = self._pad(message)
-        iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return base64.b64encode(iv + cipher.encrypt(message)).decode('utf-8')
-
+    def encrypt(self, raw):
+        """
+        加密方法
+        :param raw: 需要加密的密文 str
+        :return: base64编码的密文 str
+        """
+        cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+        return base64.b64encode(cipher.encrypt(self.__pad(raw).encode())).decode()
 
     def decrypt(self, enc):
-        enc = base64.b64decode(enc)
-        iv = enc[:AES.block_size]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+        """
+        解密方法
+        :param enc: base64编码的密文 str
+        :return: 解密后的明文 str
+        """
+        cipher = AES.new(self.key, AES.MODE_CBC, self.iv)
+        return self.__unpad(cipher.decrypt(base64.b64decode(enc)).decode())
+
+    def __pad(self, text):
+        # 填充方法，加密内容必须为16字节的倍数
+        text_length = len(text)
+        amount_to_pad = AES.block_size - (text_length % AES.block_size)
+        if amount_to_pad == 0:
+            amount_to_pad = AES.block_size
+        pad = chr(amount_to_pad)
+        return text + pad * amount_to_pad
+
+    def __unpad(self, text):
+        # 截取填充的字符
+        pad = ord(text[-1])
+        return text[:-pad]
+
+
+if __name__ == '__main__':
+    cipher = AESCipher(get_random_bytes(16))
+    text = "hello"
+    encrypt = cipher.encrypt(text)
+    print('加密后:\n%s' % encrypt)
+    decrypt = cipher.decrypt(encrypt)
+    print('解密后:\n%s' % decrypt)
