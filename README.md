@@ -1,8 +1,8 @@
 # Usage
 ### Client
 ```python
-# 明文
-text = 'hello client!'
+# 客户端代码
+text = 'hello server!'
 
 # 随机生成aes的密钥
 aes_key = get_random_bytes(16)
