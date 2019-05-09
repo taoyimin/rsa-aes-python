@@ -67,7 +67,7 @@ class RSACipher():
 
 if __name__ == '__main__':
     # 客户端代码
-    text = b'hello'
+    text = b'hello server!'
     cipher = RSACipher()
     # 使用服务端公钥加密
     encrypt_text = cipher.encrypt(Config.SERVER_PUBLIC_KEY, text)

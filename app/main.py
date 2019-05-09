@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Author:Tao Yimin
 # Time  :2019/5/7 19:29
-
 from Crypto.Random import get_random_bytes
 
 from app.AESCipher import AESCipher
@@ -13,8 +12,7 @@ from app.config import Config
 text = 'hello server!'
 
 # 随机生成aes的密钥
-aes_key = b'3r2YNrD55ed2N0H3'
-# aes_key = get_random_bytes(16)
+aes_key = get_random_bytes(16)
 print('随机生成的aes密钥:\n%s' % aes_key)
 
 aes_cipher = AESCipher(aes_key)

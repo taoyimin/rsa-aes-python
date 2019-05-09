@@ -3,7 +3,6 @@
 # Author:Tao Yimin
 # Time  :2019/5/7 18:44
 import base64
-import hashlib
 
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
@@ -53,8 +52,9 @@ class AESCipher:
 
 
 if __name__ == '__main__':
+    # 随机生成16位aes密钥
     cipher = AESCipher(get_random_bytes(16))
-    text = "hello"
+    text = "hello server!"
     encrypt = cipher.encrypt(text)
     print('加密后:\n%s' % encrypt)
     decrypt = cipher.decrypt(encrypt)
