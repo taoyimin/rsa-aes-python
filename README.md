@@ -24,9 +24,9 @@ encrypt_key = rsa_cipher.encrypt(Config.SERVER_PUBLIC_KEY, aes_key)
 ```python
 # 服务端代码
 # 模拟接收到客户端的加密aes密钥、签名、加密的密文
-encrypt_key = 'u+j5z9A7YrUFFf5UJ4PhynyKVx8/irC1/oFl7xpq0PzQtWxi0RzlrT/OY2L1nqlCOAAFj8Q6JDvrxV66nl/oEhrwvcETr3kcehqZmYJs6xr7ROf6b80UfibifoL7TOs2GhQOdMm0vlRb8vgBEKqc9uX4NN73M4FCH6zzf86mNAI='
-signature = '3mHEuVWjAPytInJsC41dprKTAMAJ5mbct4Tv1nzltfC4mxGxOH1B55a9qjkZ0hkUyBw/aukmUNcikSNB27g7kZ+WG3DQMr799fVmX9YA6G8xj3yjM8zvIo13agBtkiZ9Da1tmYC0yynU9CY/6VUYpUYnrs2Ci9Ttir0fDNkhSF8='
-encrypt_text = 'JYhBn/AGsfRhuf/x2tvtkw=='
+encrypt_key = 'Ny7nndkNalyCX8soyOXVELsxcWuVjsMJGXGpMRph2Tj9TRn8h9ClVl6q0OcSDy0XTSmb52fl30I4kqS4m7sE+NpOUDso7X+B1YNUFe/Pop+M3aFxi7atxI9gW+6hQUJSwuO4id1gTcG+m4p/W8eFmFwUdbUN6U4mqLetcJfqHQk='
+signature = '2e6b/uths9iBuvAk41CRZ8OQbcixcfmDmTQ2ym4zNS0YC0Qb4ep5nROdGOoFVnkrDOBaZ5mbzcBFGIFEgupoCcOGF9dZqh/hODdW7dPx6uXczg5gltHUO8F/dkXORcmMgyjLrhh3BcKe5/0ca6VdpLlXaYzJQBERvgeMSm467NE='
+encrypt_text = 'a7owrQShmjXZZ003DBPyNQ=='
 
 # 使用服务端私钥对加密后的aes密钥解密
 aes_key = rsa_cipher.decrypt(Config.SERVER_PRIVATE_KEY, encrypt_key)
